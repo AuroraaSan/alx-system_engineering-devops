@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -a | grep -E '^\.{0,2}$' -v | sed 's/$/,/' | tr '\n' ' ' | sed 's/,$/\n/'
+ls -map

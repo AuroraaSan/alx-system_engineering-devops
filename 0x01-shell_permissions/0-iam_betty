@@ -1,2 +1,2 @@
 #!/bin/bash
-su -c 'whoami' betty
+sudo su - betty

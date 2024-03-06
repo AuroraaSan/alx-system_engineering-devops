@@ -20,4 +20,3 @@ if __name__ == "__main__":
                               "completed": task.get("completed"),
                               "username": user_name} for task in tasks]},
                   jsonfile)
-        

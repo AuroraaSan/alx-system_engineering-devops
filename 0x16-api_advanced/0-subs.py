@@ -1,28 +1,30 @@
 #!/usr/bin/python3
-"""Module for task 0"""
+"""Module for task 1"""
 
 
-def number_of_subscribers(subreddit):
-    """Queries the Reddit API and returns the number of subscribers
-    to the subreddit"""
+def top_ten(subreddit):
+    """Queries the Reddit API and returns the top 10 hot posts
+    of the subreddit"""
     import requests
 
     headers = {"User-Agent": "My API Client"}
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
+    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
     response = requests.get(url, headers=headers, allow_redirects=False)
 
     if response.status_code != 200:
-        return 0
-
-    data = response.json().get("data")
-    if not data:
-        return 0
-
-    subscribers = data.get("subscribers")
-    if subscribers is None:
-        return 0
-
-    return subscribers
+        print('None')
+    else:
+        data = response.json().get("data")
+        if not data:
+            print('None')
+        else:
+            children = data.get("children")
+            if not children:
+                print('None')
+            else:
+                for child in children:
+                    title = child.get("data").get("title")
+                    print(title)
 
 if __name__ == '__main__':
     import sys
@@ -30,4 +32,4 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
         print("Please pass an argument for the subreddit to search.")
     else:
-        print("{:d}".format(number_of_subscribers(sys.argv[1])))
+        top_ten(sys.argv[1])
